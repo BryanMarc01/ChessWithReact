@@ -56,7 +56,7 @@ const ChessboardComponent = () => {
 
   // Configuración del WebSocket
   useEffect(() => {
-    const socket = io('http://localhost:3001');
+    const socket = io('https://chess-with-react.vercel.app/');
     socketRef.current = socket;
 
     socket.on('connect', () => {
