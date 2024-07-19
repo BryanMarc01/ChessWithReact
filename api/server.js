@@ -14,16 +14,12 @@ const io = socketIo(server, {
   },
 });
 
-// Manejar conexión y desconexión de clientes
 io.on('connection', (socket) => {
   console.log('New client connected');
 
-  // Escuchar el evento 'move' desde el cliente
   socket.on('move', (move) => {
     console.log(`Received move: ${JSON.stringify(move)}`);
-    // Reenviar el movimiento a todos los clientes conectados, excepto el emisor
     socket.broadcast.emit('move', move);
-    // Aquí puedes agregar lógica adicional para validar el movimiento, actualizar el estado del juego, etc.
   });
 
   socket.on('disconnect', () => {
@@ -31,7 +27,7 @@ io.on('connection', (socket) => {
   });
 });
 
-app.get('/', (req, res) => {
+app.get('/api', (req, res) => {
   res.send('Server is up and running!');
 });
 
