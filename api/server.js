@@ -2,22 +2,10 @@ const express = require('express');
 const http = require('http');
 const socketIo = require('socket.io');
 const cors = require('cors');
-const userRoutes = require('./routes/users');
-const authRoutes = require('./routes/auth');
-const gameRoutes = require('./routes/games');
 
 const app = express();
 app.use(cors());
 app.use(express.json());
-
-app.use('/users', userRoutes);
-app.use('/auth', authRoutes); // Usando las rutas de autenticación
-app.use('/games', gameRoutes);
-
-// Definir una ruta para la URL raíz
-app.get('/', (req, res) => {
-  res.send('Server is up and running!');
-});
 
 const server = http.createServer(app);
 const io = socketIo(server, {
@@ -43,7 +31,13 @@ io.on('connection', (socket) => {
   });
 });
 
+app.get('/', (req, res) => {
+  res.send('Server is up and running!');
+});
+
 const PORT = process.env.PORT || 3001;
 server.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}`);
 });
+
+module.exports = app;

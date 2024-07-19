@@ -3,16 +3,14 @@ import { Chessboard } from 'react-chessboard';
 import io from 'socket.io-client';
 import { Chess } from 'chess.js';
 
-// Definimos la posición inicial en formato FEN
 const initialPositionFEN = 'rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1';
 
 const ChessboardComponent = () => {
   const [game, setGame] = useState(new Chess(initialPositionFEN));
   const [position, setPosition] = useState(initialPositionFEN);
-  const [turn, setTurn] = useState('w'); // Usamos 'w' para blanco y 'b' para negro en FEN
+  const [turn, setTurn] = useState('w');
   const socketRef = useRef(null);
 
-  // Aplicamos el movimiento en la posición actual
   const applyMove = useCallback((move) => {
     const newGame = new Chess(game.fen());
     newGame.move({ from: move.from, to: move.to });
@@ -24,7 +22,6 @@ const ChessboardComponent = () => {
     return game.fen();
   }, [game]);
 
-  // Manejar movimientos locales
   const handleLocalMove = (sourceSquare, targetSquare) => {
     const move = {
       from: sourceSquare,
@@ -32,7 +29,6 @@ const ChessboardComponent = () => {
       turn: turn,
     };
 
-    // Usamos chess.js para verificar si el movimiento es legal
     const newGame = new Chess(game.fen());
     const isLegal = newGame.move({ from: sourceSquare, to: targetSquare });
 
@@ -47,16 +43,14 @@ const ChessboardComponent = () => {
     }
   };
 
-  // Manejar movimientos remotos recibidos a través de WebSocket
   const handleRemoteMove = useCallback((move) => {
     const newPosition = applyMove(move);
     setPosition(newPosition);
     setTurn((prevTurn) => (prevTurn === 'w' ? 'b' : 'w'));
   }, [applyMove]);
 
-  // Configuración del WebSocket
   useEffect(() => {
-    const socket = io('https://chess-with-react.vercel.app/');
+    const socket = io('https://chess-with-react.vercel.app'); // Asegúrate de que esta URL sea la correcta
     socketRef.current = socket;
 
     socket.on('connect', () => {
