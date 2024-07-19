@@ -4,14 +4,20 @@
     {
       "src": "api/server.js",
       "use": "@vercel/node"
+    },
+    {
+      "src": "frontend/package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "frontend/build"
+      }
     }
- 
   ],
   "routes": [
     { "src": "/api/(.*)", "dest": "/api/server.js" },
-    { "src": "/register", "dest": "frontend/app.js" },
-    { "src": "/login", "dest": "frontend/app.js" },
-    { "src": "/chess", "dest": "frontend/app.js" },
-    { "src": "/", "dest": "/index.html" }
+    { "src": "/register", "dest": "/index.html" },
+    { "src": "/login", "dest": "/index.html" },
+    { "src": "/chess", "dest": "/index.html" },
+    { "src": "/(.*)", "dest": "/index.html" }
   ]
 }
