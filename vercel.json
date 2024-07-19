@@ -15,9 +15,7 @@
   ],
   "routes": [
     { "src": "/api/(.*)", "dest": "/api/server.js" },
-    { "src": "/register", "dest": "/index.html" },
-    { "src": "/login", "dest": "/index.html" },
-    { "src": "/chess", "dest": "/index.html" },
+    { "handle": "filesystem" },
     { "src": "/(.*)", "dest": "/index.html" }
   ]
 }
