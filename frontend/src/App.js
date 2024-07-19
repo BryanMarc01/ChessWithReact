@@ -1,12 +1,10 @@
-// frontend/my-chess-app/src/App.js
-
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Register from './components/Register';
 import Login from './components/Login';
 import ChessboardComponent from './components/Chessboard';
 import Home from './components/Home';
-
+import './App.css'
 const App = () => {
   return (
     <Router>
