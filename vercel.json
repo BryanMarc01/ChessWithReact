@@ -1,26 +1,34 @@
 {
-  "version": 2,
-  "builds": [
+  "redirects": [
     {
-      "src": "api/server.js",
-      "use": "@vercel/node"
+      "source": "/chess",
+      "destination": "/chessboard",
+      "permanent": false
     },
     {
-      "src": "frontend/package.json",
-      "use": "@vercel/static-build"
-   
+      "source": "/register",
+      "destination": "/register",
+      "permanent": false
+    },
+    {
+      "source": "/login",
+      "destination": "/login",
+      "permanent": false
     }
-],
-
-  "routes": [
-    { "src": "/api/(.*)", "dest": "/api/server.js" },
-    { "handle": "filesystem" },
-    { "src": "/(.*)", "dest": "/frontend/build/index.html" }
   ],
   "rewrites": [
     {
       "source": "/(.*)",
       "destination": "/frontend/build/index.html"
     }
-  ]  
+  ],
+  "builds": [
+    {
+      "src": "frontend/package.json",
+      "use": "@vercel/static-build",
+      "config": {
+        "distDir": "frontend/build"
+      }
+    }
+  ]
 }
