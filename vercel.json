@@ -1,32 +1,12 @@
 {
-  "redirects": [
+  "version": 2,
+  "builds": [
     {
-      "source": "/chess",
-      "destination": "/chessboard",
-      "permanent": false
-    },
-    {
-      "source": "/register",
-      "destination": "/register",
-      "permanent": false
-    },
-    {
-      "source": "/login",
-      "destination": "/login",
-      "permanent": false
+      "src": "api/server.js",
+      "use": "@vercel/node"
     }
   ],
   "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/frontend/build/index.html"
-    }
-  ],
-  "builds": [
-    {
-      "src": "frontend/package.json",
-      "use": "@vercel/static-build"
-   
-    }
+    {"src": "/(.*)", "dest": "/"}
   ]
 }
